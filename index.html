@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quotes app</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css">
+  </head>
+  <body>
+    <header>
+      <div class="wrapper">
+        <i class="bx bxs-quote-left"></i>
+        <p>Quotes App</p>
+      </div>
+    </header>
+    <div class="container">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+      let container = document.querySelector(".container");
+      async function fetchRandomQuote() {
+        let randomQuoteUrl = `https://hindi-quotes.vercel.app/random`;
+        try {
+          let response = await fetch(randomQuoteUrl);
+          let data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Error fetching quote:", error);
+          return null;
+        }
+      }
+
+      async function populateContainer() {
+        for (let i = 0; i < 100; i++) {
+          let quote = await fetchRandomQuote();
+          if (quote) {
+            let quotes = `
+            <div class="quote-container ${quote.type}">
+        <div class="div">
+          <i class="bx bxs-quote-alt-left"></i>
+          <p id="quote">
+           ${quote.quote}
+          </p>
+          <p class="type">${quote.type}</p>
+        </div>
+        <div class="actions">
+          <i onclick="copyQuote(this)" class="bx bx-copy"></i>
+          <i onclick="shareQuote(this)" class="bx bxl-whatsapp"></i>
+        </div>
+      </div>
+            `;
+            container.insertAdjacentHTML("beforeend", quotes);
+          }
+        }
+      }
+
+      populateContainer();
+
+      function copyQuote(element) {
+        let quoteText = getQuoteText(element);
+        navigator.clipboard.writeText(quoteText);
+        Swal.fire({
+  title: "Success?",
+  text: "Text copied successfully to clipboard",
+  icon: "success"
+});
+      }
+
+      function shareQuote(element) {
+        let quoteText = getQuoteText(element);
+        let url = `whatsapp://send?text=${quoteText}`;
+        window.open(url);
+      }
+
+      function getQuoteText(element) {
+        let quoteContainer = element.closest(".quote-container");
+        let quoteTextElement = quoteContainer.querySelector("#quote");
+        return quoteTextElement.innerText;
+      }
+    </script>
+  </body>
+</html>

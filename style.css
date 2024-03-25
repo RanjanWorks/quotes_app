@@ -1,0 +1,93 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  /* background-color: #eeeeee; */
+}
+
+header {
+  height: 50px;
+  padding: 10px;
+ box-shadow: 0 1px 5px #0000001c;
+  font-size: 20px;
+  background-color: white;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+.container {
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  gap: 15px;
+  overflow-y: auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.div {
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.quote-container {
+  background-color: #F0F4F9;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+.quote-container::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  background-color: #4e7aff;
+}
+.quote-container.sad::before{
+  background-color: #b500af;
+
+}
+.quote-container.love::before{
+  background-color: #b80000;
+
+}
+.quote-container.attitude::before{
+  background-color: #9f6f00;
+
+}
+.quote-container.motivational::before{
+  background-color: #0087ac;
+
+}
+.quote-container.success::before{
+  background-color: #00bc1c;
+
+}
+.type {
+  margin: 10px 0;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.quote-container .actions {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  gap: 10px;
+  position: sticky;
+  top: 100%;
+}
+
+
+.quote-container .actions i {
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+}
